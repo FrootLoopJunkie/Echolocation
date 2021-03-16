@@ -25,7 +25,24 @@ socket.on('newPost', (arg) => {
 })
 
 function newPost(arg){
-    let p = document.createElement('p');
-    p.innerHTML = arg;
-    feedContainer.prepend(p);
+    let postContainer = document.createElement('div')
+    let user = document.createElement('span');
+    let postBody = document.createElement('span')
+    let username = genUsername();
+    user.innerHTML = `${username}: `;
+    postBody.innerHTML = arg.post_body || arg;
+    postContainer.append(user);
+    postContainer.append(postBody);
+    feedContainer.prepend(postContainer);
+}
+
+function genUsername(){
+    names = ['Gyges', 'Maudgalyayana', 'Gyfre', 'Faustus']
+    const username = names[random(names.length)]
+    console.log('test')
+    return username;
+}
+
+function random(num){
+    return Math.floor(Math.random() * num)
 }

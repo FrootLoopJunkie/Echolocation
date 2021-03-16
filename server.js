@@ -13,10 +13,9 @@ io.on('connection', (socket) => {
     console.log('Client Connected');
     userCount ++;
     io.emit('userCount', userCount);
-    socket.join('mainPage')
     socket.on('newPost', (arg) => {
         console.log('Recieved:', arg);
-        socket.to('mainPage').emit('newPost', arg);
+        socket.broadcast.emit('newPost', {'post_body': arg});
     })
     socket.on('disconnect', (reason) => {
         userCount --;

@@ -9,6 +9,9 @@ app.use(express.static('public'));
 
 io.on('connection', (socket) => {
     console.log('Client Connected');
+    socket.on('newPost', (arg) => {
+        console.log('Recieved:', arg);
+    })
 })
 
 httpServer.listen(process.env.PORT, () => {

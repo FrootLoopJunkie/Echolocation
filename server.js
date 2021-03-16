@@ -11,6 +11,7 @@ io.on('connection', (socket) => {
     console.log('Client Connected');
     socket.on('newPost', (arg) => {
         console.log('Recieved:', arg);
+        socket.emit('newPost', arg);
     })
 })
 

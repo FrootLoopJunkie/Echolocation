@@ -1,5 +1,6 @@
 const socket = io();
-const inputField = document.querySelector('#inputField')
+const inputField = document.querySelector('#inputField');
+const feedContainer = document.querySelector('#feedContainer');
 
 socket.on('connect', () => {
     console.log(`Connected`);
@@ -13,6 +14,8 @@ function inputFieldKeypress(){
     }
 }
 
-socket.on('newPost', () => {
-    
+socket.on('newPost', (arg) => {
+    let p = document.createElement('p');
+    p.innerHTML = arg;
+    feedContainer.append(p);
 })

@@ -1,6 +1,7 @@
 const socket = io();
 const inputField = document.querySelector('#inputField');
 const feedContainer = document.querySelector('#feedContainer');
+const userCount = document.querySelector('#userCount');
 
 socket.on('connect', () => {
     console.log(`Connected`);
@@ -14,6 +15,10 @@ function inputFieldKeypress(){
         inputField.value = "";
     }
 }
+
+socket.on('userCount', (arg) => {
+    userCount.innerHTML = `Connected Clients: ${arg}`;
+})
 
 socket.on('newPost', (arg) => {
     newPost(arg);

@@ -17,5 +17,5 @@ function inputFieldKeypress(){
 socket.on('newPost', (arg) => {
     let p = document.createElement('p');
     p.innerHTML = arg;
-    feedContainer.append(p);
+    feedContainer.prepend(p);
 })

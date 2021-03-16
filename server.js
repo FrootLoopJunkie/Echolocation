@@ -9,9 +9,10 @@ app.use(express.static('public'));
 
 io.on('connection', (socket) => {
     console.log('Client Connected');
+    socket.join('mainPage')
     socket.on('newPost', (arg) => {
         console.log('Recieved:', arg);
-        socket.emit('newPost', arg);
+        socket.to('mainPage').emit('newPost', arg);
     })
 })
 

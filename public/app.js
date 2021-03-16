@@ -33,6 +33,7 @@ function newPost(arg){
     postBody.innerHTML = arg.post_body || arg;
     postContainer.append(user);
     postContainer.append(postBody);
+    postContainer.setAttribute('class', 'post');
     feedContainer.prepend(postContainer);
 }
 

@@ -7,7 +7,7 @@ CREATE TABLE users(
 );
 
 CREATE TABLE posts_private(
-    post_id INT,
+    post_id SERIAL,
     post_contents TEXT,
     date_created DATE,
     user_id INT,
@@ -19,7 +19,6 @@ CREATE TABLE posts_public(
     post_id INT,
     post_contents TEXT,
     date_created DATE,
-    user_id INT,
     PRIMARY KEY (post_id)
 );
 

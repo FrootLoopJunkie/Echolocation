@@ -20,6 +20,16 @@ socket.on('userCount', (arg) => {
     userCount.innerHTML = `Connected Clients: ${arg}`;
 })
 
+socket.on('initialPosts', (arg) =>{
+    if(arg.rows !== undefined){
+        let posts = [...arg.rows];
+        posts = posts.reverse();
+        posts.forEach((elem) => {
+            newPost(elem.post_contents);
+        })
+    }
+})
+
 socket.on('newPost', (arg) => {
     newPost(arg);
 })
@@ -27,6 +37,7 @@ socket.on('newPost', (arg) => {
 function newPost(arg){
     let postContainer = document.createElement('div')
     let user = document.createElement('span');
+    user.setAttribute('class', 'user');
     let postBody = document.createElement('span')
     let username = genUsername();
     user.innerHTML = `${username}: `;
@@ -38,9 +49,8 @@ function newPost(arg){
 }
 
 function genUsername(){
-    names = ['Gyges', 'Maudgalyayana', 'Gyfre', 'Faustus']
+    names = ['Nameless','Undisclosed','Unidentified','Unnamed','Innominate','Anonymous','Undubbed','Unknown']
     const username = names[random(names.length)]
-    console.log('test')
     return username;
 }
 

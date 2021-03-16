@@ -9,6 +9,11 @@ font-family: 'Lato', sans-serif; */
     text-align: center;
     padding: 0;
     margin: 0;
+    color: 	#f8f8ff;
+}
+
+body{
+    background-color: black;
 }
 
 h1{
@@ -17,6 +22,27 @@ h1{
     text-align: center;
 }
 
+#container{
+    display: flex;
+    flex-direction: column;
+}
+
+#inputField{
+    color: black;
+}
+
 .post{
-    border: 1px solid red;
+    background-color: #283044;
+    word-wrap: break-word;
+    width: 30%;
+    margin: auto;
+    text-align: left;
+    padding: 2% 1%;
+    margin-top: 1%;
+    border-radius: 10px;
+    border: 2px groove #559CAD;
+}
+
+.user{
+    color: #559CAD;
 }

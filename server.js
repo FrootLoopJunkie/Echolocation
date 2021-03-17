@@ -44,7 +44,7 @@ io.on('connection', async(socket) => {
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
             if(hashtags !== null){
-                hashtags.forEach((elem) => {
+                hashtags.forEach(async(elem) => {
                     if(!hashtagArray.includes(elem)){
                         hashtagArray.push(elem);
                         const hashtagInsert = await pool.query(`INSERT INTO hashtags (hashtag) VALUES ('${arg}')`); 

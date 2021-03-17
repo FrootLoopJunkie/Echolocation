@@ -54,6 +54,7 @@ socket.on('newPost', (arg) => {
 
 socket.on('joinedRoom', (arg1, arg2) => {
     currentRoom.innerHTML = `Current Room: ${arg1}`
+    inputField.value = arg1;
     $("#feedContainer").empty();
     if(arg2 !== null){
         const posts = arg2.rows; 

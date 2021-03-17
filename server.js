@@ -14,8 +14,8 @@ let hashtagArray = [];
 app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
-    socket.join('home');
-    roomArray.push('home');
+    socket.join('#home');
+    roomArray.push('#home');
     console.log(`Client ${socket.id} Connected`);
     // console.log('Updating Hashtag List');
     // try {

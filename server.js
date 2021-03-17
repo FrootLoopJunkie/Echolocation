@@ -72,7 +72,7 @@ io.on('connection', async(socket) => {
         socketsInRoom();
         try{
             const client = await pool.connect();
-            const roomPosts = await pool.query('SELECT * FROM post_hashtags INNER JOIN posts_pulic ON post_hashtags.post_id = post_public.post_id');
+            const roomPosts = await pool.query('SELECT * FROM post_hashtags INNER JOIN posts_public ON post_hashtags.post_id = posts_public.post_id');
             console.log(roomPosts);
             client.release();
             socket.emit(`joinedRoom`, roomTarget, roomPosts);

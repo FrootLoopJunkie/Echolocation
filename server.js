@@ -14,12 +14,16 @@ app.use(express.static('public'));
 io.on('connection', async(socket) => {
     console.log('Client Connected');
     userCount ++;
-    const client = await pool.connect();
-    const initialPosts = await pool.query('SELECT * FROM posts_public ORDER BY post_id DESC LIMIT 10');
-    console.log(initialPosts.rows)
-    client.release();
-    socket.emit('initialPosts', initialPosts);
-    io.emit('userCount', userCount);
+    try{
+        const client = await pool.connect();
+        const initialPosts = await pool.query('SELECT * FROM posts_public ORDER BY post_id DESC LIMIT 10');
+        console.log(initialPosts.rows)
+        client.release();
+        socket.emit('initialPosts', initialPosts);
+        io.emit('userCount', userCount);
+    }catch(err){
+        console.error(err);
+    }
     socket.on('newPost', async(arg) => {
         try{
             console.log('Recieved:', arg);

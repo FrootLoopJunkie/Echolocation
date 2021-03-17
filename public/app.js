@@ -6,6 +6,8 @@ const roomCount = document.querySelector('#roomCount');
 const currentRoom = document.querySelector('#currentRoom');
 const appName = document.querySelector('#appName');
 
+let currentRoomName = '#home';
+
 socket.on('connect', () => {
     console.log(`Connected`);
     currentRoom.innerHTML = `Current Room: Home`
@@ -20,7 +22,6 @@ inputField.addEventListener('keypress', (e) => {
         e.preventDefault();
         let input = inputField.value;        
         socket.emit('newPost', input);
-        newPost(input)
         inputField.value = "";
     }
     $('.hashtag').click((e) =>{
@@ -54,6 +55,7 @@ socket.on('newPost', (arg) => {
 
 socket.on('joinedRoom', (arg1, arg2) => {
     currentRoom.innerHTML = `Current Room: ${arg1}`
+    currentRoomName = arg1;
     inputField.value = arg1;
     $("#feedContainer").empty();
     if(arg2 !== null){
@@ -69,6 +71,9 @@ function newPost(arg){
     const regx = /#(\w+)\b/ig;
     const hashtags = arg.match(regx);
     if(hashtags !== null){
+        if(currentRoomName !== '#home' && !hashtags.includes(currentRoomName)){
+            return;
+        }
         hashtags.forEach((elem) => {
             let hashtag = `<span class=hashtag>${elem}</span>`;
             arg = arg.replace(elem, hashtag)

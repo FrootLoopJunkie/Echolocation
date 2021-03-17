@@ -5,7 +5,7 @@ const app = express();
 const morgan = require('morgan');
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer);
-
+//
 let userCount = 0;
 let roomCount = 0;
 let roomArray = [];
@@ -14,7 +14,7 @@ let hashtagArray = [];
 app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
-    console.log('Client Connected');
+    console.log(`Client ${socket.id} Connected`);
     console.log('Updating Hashtag List');
     try {
         const client = await pool.connect();

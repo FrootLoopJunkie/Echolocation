@@ -47,7 +47,7 @@ io.on('connection', async(socket) => {
                 hashtags.forEach(async(elem) => {
                     if(!hashtagArray.includes(elem)){
                         hashtagArray.push(elem);
-                        const hashtagInsert = await pool.query(`INSERT INTO hashtags (hashtag) VALUES ('${arg}')`); 
+                        const hashtagInsert = await pool.query(`INSERT INTO hashtags (hashtag) VALUES ('${elem}')`); 
                     }
                 })
             }

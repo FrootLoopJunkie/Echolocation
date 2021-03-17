@@ -15,15 +15,15 @@ app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
     console.log(`Client ${socket.id} Connected`);
-    console.log('Updating Hashtag List');
-    try {
-        const client = await pool.connect();
-        const hashtags = await pool.query(`SELECT * FROM hashtags`); 
-        console.log(hashtags.rows)
-        client.release();
-    } catch (err) {
-        console.error(err);
-    }
+    // console.log('Updating Hashtag List');
+    // try {
+    //     const client = await pool.connect();
+    //     const hashtags = await pool.query(`SELECT * FROM post_hashtags`); 
+    //     console.log(hashtags.rows)
+    //     client.release();
+    // } catch (err) {
+    //     console.error(err);
+    // }
     userCount ++;
     try{
         const client = await pool.connect();
@@ -73,7 +73,7 @@ io.on('connection', async(socket) => {
         socketsInRoom();
         try{
             const client = await pool.connect();
-            const roomPosts = await pool.query('SELECT * FROM post_hashtags INNER JOIN posts_public ON post_hashtags.post_id = posts_public.post_id LIMIT 1');
+            const roomPosts = await pool.query('SELECT * FROM post_hashtags INNER JOIN posts_public ON post_hashtags.post_id = posts_public.post_id LIMIT 10');
             console.log(roomPosts);
             client.release();
             socket.emit(`joinedRoom`, roomTarget, roomPosts);

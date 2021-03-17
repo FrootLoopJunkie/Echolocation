@@ -50,7 +50,7 @@ socket.on('initialPosts', (arg) =>{
 
 socket.on('newPost', (arg) => {
     console.log(arg);
-    newPost(arg.postBody);
+    newPost(arg.post_body);
 })
 
 socket.on('joinedRoom', (arg) => {

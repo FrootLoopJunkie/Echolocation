@@ -59,6 +59,7 @@ socket.on('joinedRoom', (arg1, arg2) => {
     if(arg2 !== null){
         const posts = arg2.fields; 
         posts.forEach((elem) => {
+            console.log(elem)
             newPost(elem.post_body);
         })
     }

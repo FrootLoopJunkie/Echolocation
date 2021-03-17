@@ -71,10 +71,10 @@ function newPost(arg){
 
     const regx = /#(\w+)\b/ig;
     const hashtags = arg.match(regx);
+    if(currentRoomName !== '#home' && !hashtags.includes(currentRoomName)){
+        return;
+    }
     if(hashtags !== null){
-        if(currentRoomName !== '#home' && !hashtags.includes(currentRoomName)){
-            return;
-        }
         hashtags.forEach((elem) => {
             let hashtag = `<span class=hashtag>${elem}</span>`;
             arg = arg.replace(elem, hashtag)

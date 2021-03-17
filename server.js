@@ -9,11 +9,21 @@ const io = require('socket.io')(httpServer);
 let userCount = 0;
 let roomCount = 0;
 let roomArray = [];
+let hashtagArray = [];
 
 app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
     console.log('Client Connected');
+    console.log('Updating Hashtag List');
+    try {
+        const client = await pool.connect();
+        const hashtags = await pool.query(`SELECT * FROM hashtags`); 
+        console.log(hashtag.rows)
+        client.release();
+    } catch (err) {
+        console.error(err);
+    }
     userCount ++;
     try{
         const client = await pool.connect();
@@ -31,6 +41,16 @@ io.on('connection', async(socket) => {
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;
             const publicPost = await pool.query(`INSERT INTO posts_public (post_id, post_contents, date_created) VALUES ('${postID}', '${arg}', null)`);
+            const regx = /#(\w+)\b/ig;
+            const hashtags = arg.match(regx);
+            if(hashtags !== null){
+                hashtags.forEach((elem) => {
+                    if(!hashtagArray.includes(elem)){
+                        hashtagArray.push(elem);
+                        const hashtagInsert = await pool.query(`INSERT INTO hashtags (hashtag) VALUES ('${arg}')`); 
+                    }
+                })
+            }
             client.release();
         }catch(err){
             console.error(err);
@@ -50,10 +70,15 @@ io.on('connection', async(socket) => {
         })
         socket.join(roomTarget);
         socketsInRoom();
-        console.log(socket.id)
-        socket.emit(`joinedRoom`, roomTarget);
-        io.emit('statCount', userCount, roomCount);
-        
+        try{
+            const client = await pool.connect();
+            const roomPosts = await pool.query('SELECT * FROM posts_public ORDER BY post_id DESC LIMIT 10');
+            client.release();
+            socket.emit(`joinedRoom`, roomTarget, roomPosts);
+            io.emit('statCount', userCount, roomCount);
+        }catch(err){
+            console.error(err);
+        }        
     })
     socket.on('disconnect', (reason) => {
         socketsInRoom();

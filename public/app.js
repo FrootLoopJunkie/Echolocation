@@ -71,6 +71,7 @@ function newPost(arg){
 
     const regx = /#(\w+)\b/ig;
     const hashtags = arg.match(regx);
+    console.log(hashtags);
     if(hashtags !== null){
         hashtags.forEach((elem) => {
             let hashtag = `<span class=hashtag>${elem}</span>`;

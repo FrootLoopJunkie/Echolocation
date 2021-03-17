@@ -47,7 +47,8 @@ io.on('connection', async(socket) => {
                 hashtags.forEach(async(elem) => {
                     if(!hashtagArray.includes(elem)){
                         hashtagArray.push(elem);
-                        const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}'), '${postID}')`); 
+                        console.log(`Adding ${elem} To DB`)
+                        const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 
                     }
                 })
             }

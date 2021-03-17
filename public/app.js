@@ -49,6 +49,7 @@ socket.on('initialPosts', (arg) =>{
 })
 
 socket.on('newPost', (arg) => {
+    console.log(arg);
     newPost(arg.postBody);
 })
 

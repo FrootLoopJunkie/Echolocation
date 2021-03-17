@@ -7,6 +7,7 @@ const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer);
 
 let userCount = 0;
+let roomCount = 0;
 
 app.use(express.static('public'));
 

@@ -2,26 +2,28 @@ const socket = io();
 const inputField = document.querySelector('#inputField');
 const feedContainer = document.querySelector('#feedContainer');
 const userCount = document.querySelector('#userCount');
+const roomCount = document.querySelector('#roomCount');
 
 socket.on('connect', () => {
     console.log(`Connected`);
 })
 
-function inputFieldKeypress(){
-    let key = window.event.keyCode;
-    if(key === 13){
+inputField.addEventListener('keypress', (e) => {
+    if(e.keyCode === 13){
+        e.preventDefault();
         socket.emit('newPost', inputField.value);
         newPost(inputField.value)
         inputField.value = "";
     }
-}
+})
 
 socket.on('userCount', (arg) => {
-    userCount.innerHTML = `Connected Clients: ${arg}`;
+    userCount.innerHTML = `-- Connected Clients: ${arg} --`;
+    roomCount.innerHTML = `-- Chat Rooms Open: 0 --`;
 })
 
 socket.on('initialPosts', (arg) =>{
-    if(arg.rows !== undefined){
+    if(arg.rows !== undefined || document.querySelector('.post')){
         let posts = [...arg.rows];
         posts = posts.reverse();
         posts.forEach((elem) => {

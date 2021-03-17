@@ -28,7 +28,18 @@ h1{
 }
 
 #inputField{
+    text-align:start;
+    position: relative;
+    resize: none;
+    margin-top: 1%;
+    padding: 0.5%;
+    width: 30%;
+    height: 10vh;
     color: black;
+}
+
+.stats{
+    font-size: 0.75rem;
 }
 
 .post{

@@ -52,9 +52,15 @@ socket.on('newPost', (arg) => {
     newPost(arg.post_body);
 })
 
-socket.on('joinedRoom', (arg) => {
-    currentRoom.innerHTML = `Current Room: ${arg}`
+socket.on('joinedRoom', (arg1, arg2) => {
+    currentRoom.innerHTML = `Current Room: ${arg1}`
     $("#feedContainer").empty();
+    if(arg2 !== null){
+        const posts = arg2.rows; 
+        posts.forEach((elem) => {
+            newPost(elem.post_body);
+        })
+    }
 })
 
 function newPost(arg){

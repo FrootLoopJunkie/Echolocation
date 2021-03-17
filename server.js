@@ -14,6 +14,8 @@ let hashtagArray = [];
 app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
+    socket.join('home');
+    roomArray.push('home');
     console.log(`Client ${socket.id} Connected`);
     // console.log('Updating Hashtag List');
     // try {
@@ -36,7 +38,7 @@ io.on('connection', async(socket) => {
     }
     socket.on('newPost', async(arg) => {
         try{
-            socket.broadcast.emit('newPost', {'post_body': arg});
+            socket.to('home').emit('newPost', {'post_body': arg});
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;

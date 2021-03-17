@@ -60,7 +60,7 @@ socket.on('joinedRoom', (arg1, arg2) => {
         const posts = arg2.rows; 
         posts.forEach((elem) => {
             console.log(elem)
-            newPost(elem.post_body);
+            newPost(elem.post_contents);
         })
     }
 })

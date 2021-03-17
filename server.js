@@ -39,15 +39,15 @@ io.on('connection', async(socket) => {
     socket.on('newPost', async(arg, arg2) => {
         try{
             socket.to('#home').emit('newPost', {'post_body': arg});
-            if(arg2){
-                socket.to('arg2').emit('newPost', {'post_body': arg});
-            }
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;
             const publicPost = await pool.query(`INSERT INTO posts_public (post_id, post_contents, date_created) VALUES ('${postID}', '${arg}', null)`);
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
+            if(hashtags === null){
+                socket.to('arg2').emit('newPost', {'post_body': arg});
+            }
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {
                     console.log(`Adding ${elem} To DB`)

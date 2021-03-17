@@ -19,7 +19,7 @@ io.on('connection', async(socket) => {
     try {
         const client = await pool.connect();
         const hashtags = await pool.query(`SELECT * FROM hashtags`); 
-        console.log(hashtag.rows)
+        console.log(hashtags.rows)
         client.release();
     } catch (err) {
         console.error(err);

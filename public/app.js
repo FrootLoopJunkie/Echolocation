@@ -21,7 +21,7 @@ inputField.addEventListener('keypress', (e) => {
     if(e.keyCode === 13){
         e.preventDefault();
         let input = inputField.value;        
-        socket.emit('newPost', input);
+        socket.emit('newPost', input, currentRoomName);
         newPost(input);
         inputField.value = "";
     }

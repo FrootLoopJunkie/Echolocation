@@ -49,7 +49,7 @@ socket.on('initialPosts', (arg) =>{
 })
 
 socket.on('newPost', (arg) => {
-    newPost(arg);
+    newPost(arg.postBody);
 })
 
 socket.on('joinedRoom', (arg) => {

@@ -22,17 +22,10 @@ CREATE TABLE posts_public(
     PRIMARY KEY (post_id)
 );
 
-CREATE TABLE hashtags(
-    hashtag_id SERIAL,
-    hashtag TEXT,
-    PRIMARY KEY (hashtag_id)
-);
-
 CREATE TABLE post_hashtags(
     posthashtag_id SERIAL,
+    hashtag TEXT,
     post_id INT,
-    hashtag_id INT,
-    PRIMARY KEY (post_id),
-    FOREIGN KEY (post_id) REFERENCES posts_public(post_id),
-    FOREIGN KEY (hashtag_id) REFERENCES hashtags(hashtag_id)
+    PRIMARY KEY (posthashtag_id),
+    FOREIGN KEY (post_id) REFERENCES posts_public(post_id)
 );

@@ -47,7 +47,7 @@ io.on('connection', async(socket) => {
                 hashtags.forEach(async(elem) => {
                     if(!hashtagArray.includes(elem)){
                         hashtagArray.push(elem);
-                        const hashtagInsert = await pool.query(`INSERT INTO hashtags (hashtag) VALUES ('${elem}')`); 
+                        const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}'), '${postID}')`); 
                     }
                 })
             }
@@ -72,7 +72,8 @@ io.on('connection', async(socket) => {
         socketsInRoom();
         try{
             const client = await pool.connect();
-            const roomPosts = await pool.query('SELECT * FROM posts_public ORDER BY post_id DESC LIMIT 10');
+            const roomPosts = await pool.query('SELECT * FROM post_hashtags INNER JOIN posts_pulic ON post_hashtags.post_id = post_public.post_id');
+            console.log(roomPosts);
             client.release();
             socket.emit(`joinedRoom`, roomTarget, roomPosts);
             io.emit('statCount', userCount, roomCount);

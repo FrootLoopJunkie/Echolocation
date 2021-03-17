@@ -22,6 +22,7 @@ inputField.addEventListener('keypress', (e) => {
         e.preventDefault();
         let input = inputField.value;        
         socket.emit('newPost', input);
+        newPost(input);
         inputField.value = "";
     }
     $('.hashtag').click((e) =>{

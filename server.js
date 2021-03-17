@@ -47,7 +47,7 @@ io.on('connection', async(socket) => {
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
             if(hashtags === null){
-                socket.to('arg2').emit('newPost', {'post_body': arg});
+                //socket.to('arg2').emit('newPost', {'post_body': arg});
             }
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {

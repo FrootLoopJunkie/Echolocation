@@ -72,7 +72,7 @@ function newPost(arg){
     const regx = /#(\w+)\b/ig;
     const hashtags = arg.match(regx);
     console.log(hashtags)
-    if(currentRoomName !== '#home' && hashtags === undefined){
+    if(currentRoomName !== '#home' && hashtags === null){
         return;
     }
     if(hashtags !== null){

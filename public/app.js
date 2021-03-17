@@ -3,23 +3,35 @@ const inputField = document.querySelector('#inputField');
 const feedContainer = document.querySelector('#feedContainer');
 const userCount = document.querySelector('#userCount');
 const roomCount = document.querySelector('#roomCount');
+const currentRoom = document.querySelector('#currentRoom');
+const appName = document.querySelector('#appName');
 
 socket.on('connect', () => {
     console.log(`Connected`);
+    currentRoom.innerHTML = `Current Room: Home`
+})
+
+appName.addEventListener('click', () => {
+    location.reload();
 })
 
 inputField.addEventListener('keypress', (e) => {
     if(e.keyCode === 13){
         e.preventDefault();
-        socket.emit('newPost', inputField.value);
-        newPost(inputField.value)
+        let input = inputField.value;        
+        socket.emit('newPost', input);
+        newPost(input)
         inputField.value = "";
     }
+    $('.hashtag').click((e) =>{
+        let target = e.target.textContent;
+        socket.emit('roomRequest', target);
+    })  
 })
 
-socket.on('userCount', (arg) => {
-    userCount.innerHTML = `-- Connected Clients: ${arg} --`;
-    roomCount.innerHTML = `-- Chat Rooms Open: 0 --`;
+socket.on('statCount', (arg1, arg2) => {
+    userCount.innerHTML = `-- Total Connected Clients: ${arg1} --`;
+    roomCount.innerHTML = `-- Chat Rooms Open: ${arg2} --`;
 })
 
 socket.on('initialPosts', (arg) =>{
@@ -30,24 +42,44 @@ socket.on('initialPosts', (arg) =>{
             newPost(elem.post_contents);
         })
     }
+    $('.hashtag').click((e) =>{
+        let target = e.target.textContent;
+        socket.emit('roomRequest', target);
+    })  
 })
 
 socket.on('newPost', (arg) => {
     newPost(arg);
 })
 
+socket.on('joinedRoom', (arg) => {
+    currentRoom.innerHTML = `Current Room: ${arg}`
+    $("#feedContainer").empty();
+})
+
 function newPost(arg){
+
+    const regx = /#(\w+)\b/ig;
+    const hashtags = arg.match(regx);
+    if(hashtags !== null){
+        hashtags.forEach((elem) => {
+            let hashtag = `<span class=hashtag>${elem}</span>`;
+            arg = arg.replace(elem, hashtag)
+        })
+    }
+
     let postContainer = document.createElement('div')
     let user = document.createElement('span');
     user.setAttribute('class', 'user');
     let postBody = document.createElement('span')
+    postBody.setAttribute('class', 'postBody');
     let username = genUsername();
     user.innerHTML = `${username}: `;
     postBody.innerHTML = arg.post_body || arg;
     postContainer.append(user);
     postContainer.append(postBody);
     postContainer.setAttribute('class', 'post');
-    feedContainer.prepend(postContainer);
+    feedContainer.prepend(postContainer);  
 }
 
 function genUsername(){

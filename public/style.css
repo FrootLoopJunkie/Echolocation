@@ -17,9 +17,17 @@ body{
 }
 
 h1{
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    cursor: pointer;
     font-family: 'Iceland', cursive;
     font-size: 5rem;
     text-align: center;
+}
+
+h1:hover{
+    color: #559CAD;
 }
 
 #container{
@@ -36,6 +44,7 @@ h1{
     width: 30%;
     height: 10vh;
     color: black;
+    background: rgb(247, 247, 247);
 }
 
 .stats{
@@ -52,6 +61,16 @@ h1{
     margin-top: 1%;
     border-radius: 10px;
     border: 2px groove #559CAD;
+}
+
+.postBody{
+    pointer-events: none;
+}
+
+.hashtag{
+    pointer-events: all;
+    color: #CC5500;
+    cursor: pointer;
 }
 
 .user{

@@ -76,3 +76,12 @@ h1:hover{
 .user{
     color: #559CAD;
 }
+
+@media only screen and (max-width: 600px) {
+    #inputField{
+        width: 90%;
+    }
+    .post{
+        width: 90%;
+    }
+  }

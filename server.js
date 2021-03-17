@@ -45,6 +45,7 @@ io.on('connection', async(socket) => {
             const publicPost = await pool.query(`INSERT INTO posts_public (post_id, post_contents, date_created) VALUES ('${postID}', '${arg}', null)`);
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
+            console.log('Hashtags: ' + hashtags);
             if(hashtags === null){
                 socket.to('arg2').emit('newPost', {'post_body': arg});
             }

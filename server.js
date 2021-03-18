@@ -40,7 +40,6 @@ io.on('connection', async(socket) => {
         try{
             console.log(arg2);
             socket.to('#home').emit('newPost', {'post_body': arg});
-            socket.broadcast.to(arg2).emit('newPost', {'post_body': arg});
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;
@@ -60,6 +59,7 @@ io.on('connection', async(socket) => {
                     }
                 })
             }
+            socket.broadcast.to(arg2).emit('newPost', {'post_body': arg});
             client.release();
         }catch(err){
             console.error(err);

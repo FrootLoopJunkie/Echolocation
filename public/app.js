@@ -52,6 +52,10 @@ socket.on('initialPosts', (arg) =>{
 
 socket.on('newPost', (arg) => {
     newPost(arg.post_body);
+    $('.hashtag').click((e) =>{
+        let target = e.target.textContent;
+        socket.emit('roomRequest', target);
+    })  
 })
 
 socket.on('joinedRoom', (arg1, arg2) => {
@@ -90,7 +94,7 @@ function newPost(arg){
     postContainer.append(user);
     postContainer.append(postBody);
     postContainer.setAttribute('class', 'post');
-    feedContainer.prepend(postContainer);  
+    feedContainer.prepend(postContainer);
 }
 
 function genUsername(){

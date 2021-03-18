@@ -59,7 +59,6 @@ io.on('connection', async(socket) => {
                     }
                 })
             }
-            socket.broadcast.to(arg2).emit('newPost', {'post_body': arg});
             client.release();
         }catch(err){
             console.error(err);

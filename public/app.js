@@ -10,7 +10,7 @@ let currentRoomName = '#home';
 
 socket.on('connect', () => {
     console.log(`Connected`);
-    currentRoom.innerHTML = `Current Room: Home`
+    currentRoom.innerHTML = `Current Room: #home`
 })
 
 appName.addEventListener('click', () => {

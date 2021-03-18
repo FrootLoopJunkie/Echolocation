@@ -38,6 +38,7 @@ io.on('connection', async(socket) => {
     }
     socket.on('newPost', async(arg, arg2) => {
         try{
+            console.log(socket.rooms);
             socket.to('#home').emit('newPost', {'post_body': arg});
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 

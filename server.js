@@ -18,6 +18,7 @@ io.on('connection', async(socket) => {
     if(!roomArray.includes('#home')){
         roomArray.push('#home');
     }
+    roomCount = roomArray.length;
     console.log(`Client ${socket.id} Connected`);
     // console.log('Updating Hashtag List');
     // try {
@@ -42,7 +43,6 @@ io.on('connection', async(socket) => {
         try{
             socketsInRoom();
             io.emit('statCount', userCount, roomCount);
-            console.log(socket.rooms);
             socket.to('#home').emit('newPost', {'post_body': arg});
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
@@ -105,11 +105,9 @@ httpServer.listen(process.env.PORT, () => {
 })
 
 function socketsInRoom(){
-    console.log('RoomArray:' + roomArray)
     roomArray.forEach((elem) =>{
         let checkDuplicate = [];
         let room = io.sockets.adapter.rooms.get(elem);
-        console.log(room)
         if(room === undefined){
             roomArray.splice(roomArray.indexOf(elem), 1)
         }

@@ -78,9 +78,6 @@ function newPost(arg){
     //console.log(hashtags)
     if(hashtags !== null){
         console.log(`hashtags: ${hashtags} room: ${currentRoomName}`);
-        if(hashtags.includes(currentRoomName) && currentRoomName !== '#home'){
-            return;
-        }
         hashtags.forEach((elem) => {
             let hashtag = `<span class=hashtag>${elem}</span>`;
             arg = arg.replace(elem, hashtag)

@@ -106,6 +106,7 @@ function socketsInRoom(){
     roomArray.forEach((elem) =>{
         let checkDuplicate = [];
         let room = io.sockets.adapter.rooms.get(elem);
+        console.log(room)
         if(room === undefined){
             roomArray.splice(roomArray.indexOf(elem), 1)
             roomCount--;

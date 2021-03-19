@@ -20,15 +20,6 @@ io.on('connection', async(socket) => {
     }
     roomCount = roomArray.length;
     console.log(`Client ${socket.id} Connected`);
-    // console.log('Updating Hashtag List');
-    // try {
-    //     const client = await pool.connect();
-    //     const hashtags = await pool.query(`SELECT * FROM post_hashtags`); 
-    //     console.log(hashtags.rows)
-    //     client.release();
-    // } catch (err) {
-    //     console.error(err);
-    // }
     userCount ++;
     try{
         const client = await pool.connect();

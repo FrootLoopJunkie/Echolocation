@@ -57,7 +57,7 @@ io.on('connection', async(socket) => {
                     console.log(`Adding ${elem.toLowerCase()} To DB`)
                     if(elem.toLowerCase() !== socket.id){
                         console.log(`Target: ` + elem);
-                        socket.broadcast.to("#test").emit('newPost', {'post_body': arg});
+                        socket.to(elem.toLowerCase()).emit('newPost', {'post_body': arg});
                     }
                     const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem.toLowerCase()}', '${postID}')`); 
                     if(!hashtagArray.includes(elem.toLowerCase())){

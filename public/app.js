@@ -77,13 +77,13 @@ function newPost(arg){
     const hashtags = arg.match(regx);
     //console.log(hashtags)
     if(hashtags !== null){
+        if(hashtags.includes(currentRoom) && currentRoom !== '#home'){
+            return;
+        }
         hashtags.forEach((elem) => {
             let hashtag = `<span class=hashtag>${elem}</span>`;
             arg = arg.replace(elem, hashtag)
         })
-    }
-    if(hashtags.includes(currentRoom) && currentRoom !== '#home'){
-        return;
     }
 
     let postContainer = document.createElement('div')

@@ -38,6 +38,8 @@ io.on('connection', async(socket) => {
     }
     socket.on('newPost', async(arg, arg2) => {
         try{
+            socketsInRoom();
+            io.emit('statCount', userCount, roomCount);
             console.log(socket.rooms);
             socket.to('#home').emit('newPost', {'post_body': arg});
             const client = await pool.connect();
@@ -53,7 +55,7 @@ io.on('connection', async(socket) => {
                     const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem.toLowerCase()}', '${postID}')`); 
                     if(elem.toLowerCase() !== socket.id || elem.toLowerCase() !== arg2.toLowerCase()){
                         console.log(`'${elem.toLowerCase()}'`);
-                        socket.to(`'${elem.toLowerCase()}'`).emit('newPost', {'post_body': arg});
+                        socket.to(`'${elem}'`).emit('newPost', {'post_body': arg});
                     }
                     if(!hashtagArray.includes(elem.toLowerCase())){
                         hashtagArray.push(elem.toLowerCase());

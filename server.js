@@ -13,7 +13,7 @@ let hashtagArray = [];
 
 app.use(express.static('public'));
 
-io.on('connection', async(socket) => {
+io.on('connection', (socket) => {
     socket.join('#home');
     if(!roomArray.includes('#home')){
         roomArray.push('#home');
@@ -51,7 +51,6 @@ io.on('connection', async(socket) => {
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
-            console.log('Got past this. 2')
             socket.to('#test').emit('newPost', {'post_body': arg});
             // if(hashtags !== null){
             //     hashtags.forEach(async(elem) => {

@@ -45,6 +45,8 @@ h1:hover{
     height: 10vh;
     color: black;
     background: rgb(247, 247, 247);
+    border: 2px groove #559CAD;
+    border-radius: 10px;
 }
 
 .stats{

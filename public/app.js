@@ -82,6 +82,9 @@ function newPost(arg){
             arg = arg.replace(elem, hashtag)
         })
     }
+    if(hashtags.includes(currentRoom) && currentRoom !== '#home'){
+        return;
+    }
 
     let postContainer = document.createElement('div')
     let user = document.createElement('span');

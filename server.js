@@ -112,7 +112,6 @@ function socketsInRoom(){
         console.log(room)
         if(room === undefined){
             roomArray.splice(roomArray.indexOf(elem), 1)
-            roomCount--;
         }
         if(checkDuplicate.includes(room)){
             roomArray.splice(roomArray.indexOf(elem), 1) 
@@ -121,4 +120,5 @@ function socketsInRoom(){
         }
        
     })
+    roomCount = roomArray.length;
 }

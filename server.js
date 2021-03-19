@@ -55,7 +55,7 @@ io.on('connection', async(socket) => {
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {
                     console.log(`Adding ${elem.toLowerCase()} To DB`)
-                    if(elem.toLowerCase() !== socket.id || elem.toLowerCase() !== arg2.toLowerCase()){
+                    if(elem.toLowerCase() !== socket.id && elem.toLowerCase() !== arg2.toLowerCase()){
                         console.log(`Target: ` + elem);
                         socket.to("#test").emit('newPost', {'post_body': arg});
                     }

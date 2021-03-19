@@ -51,6 +51,7 @@ io.on('connection', async(socket) => {
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
+            console.log('Got past this. 2')
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {
                     console.log(`Adding ${elem.toLowerCase()} To DB`)
@@ -86,6 +87,7 @@ io.on('connection', async(socket) => {
         try{
             const client = await pool.connect();
             const roomPosts = await pool.query(`SELECT * FROM post_hashtags INNER JOIN posts_public ON post_hashtags.post_id = posts_public.post_id WHERE post_hashtags.hashtag = '${arg}' LIMIT 10`);
+            console.log('Got past this. 1')
             client.release();
             socket.emit(`joinedRoom`, roomTarget, roomPosts);
             io.emit('statCount', userCount, roomCount);

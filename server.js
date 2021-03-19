@@ -104,10 +104,16 @@ httpServer.listen(process.env.PORT, () => {
 
 function socketsInRoom(){
     roomArray.forEach((elem) =>{
+        let checkDuplicate = [];
         let room = io.sockets.adapter.rooms.get(elem);
         if(room === undefined){
             roomArray.splice(roomArray.indexOf(elem), 1)
             roomCount--;
+        }
+        if(checkDuplicate.includes(room)){
+            roomArray.splice(roomArray.indexOf(elem), 1) 
+        }else{
+            checkDuplicate.push(room);
         }
        
     })

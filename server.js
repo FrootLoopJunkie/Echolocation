@@ -54,14 +54,14 @@ io.on('connection', async(socket) => {
             console.log('Got past this. 2')
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {
-                    console.log(`Adding ${elem.toLowerCase()} To DB`)
-                    if(elem.toLowerCase() !== socket.id){
+                    console.log(`Adding ${elem} To DB`)
+                    if(elem !== socket.id){
                         console.log(`Target: ` + elem);
-                        socket.to(elem.toLowerCase()).emit('newPost', {'post_body': arg});
+                        socket.to(elem).emit('newPost', {'post_body': arg});
                     }
-                    const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem.toLowerCase()}', '${postID}')`); 
-                    if(!hashtagArray.includes(elem.toLowerCase())){
-                        hashtagArray.push(elem.toLowerCase());
+                    const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 
+                    if(!hashtagArray.includes(elem)){
+                        hashtagArray.push(elem);
                     }
                 })
             }

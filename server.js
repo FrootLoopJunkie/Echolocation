@@ -15,7 +15,9 @@ app.use(express.static('public'));
 
 io.on('connection', async(socket) => {
     socket.join('#home');
-    roomArray.push('#home');
+    if(!roomArray.includes('#home')){
+        roomArray.push('#home');
+    }
     console.log(`Client ${socket.id} Connected`);
     // console.log('Updating Hashtag List');
     // try {
@@ -103,6 +105,7 @@ httpServer.listen(process.env.PORT, () => {
 })
 
 function socketsInRoom(){
+    console.log('RoomArray:' + roomArray)
     roomArray.forEach((elem) =>{
         let checkDuplicate = [];
         let room = io.sockets.adapter.rooms.get(elem);

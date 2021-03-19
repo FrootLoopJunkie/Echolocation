@@ -49,6 +49,8 @@ h1:hover{
 
 .stats{
     font-size: 0.75rem;
+    animation-name: redFlash;
+    animation-duration: 2s
 }
 
 .post{
@@ -85,3 +87,9 @@ h1:hover{
         width: 90%;
     }
   }
+
+@keyframes redFlash{
+    from {color: #f8f8ff;}
+  to {color: red;}
+  to {color: #f8f8ff;}
+}

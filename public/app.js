@@ -77,8 +77,8 @@ function newPost(arg){
     const hashtags = arg.match(regx);
     //console.log(hashtags)
     if(hashtags !== null){
-        console.log(`hashtags: ${hashtags} room: ${currentRoom}`);
-        if(hashtags.includes(currentRoom) && currentRoom !== '#home'){
+        console.log(`hashtags: ${hashtags} room: ${currentRoomName}`);
+        if(hashtags.includes(currentRoom) && currentRoomName !== '#home'){
             return;
         }
         hashtags.forEach((elem) => {

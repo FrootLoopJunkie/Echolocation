@@ -52,19 +52,19 @@ io.on('connection', async(socket) => {
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
             console.log('Got past this. 2')
-            if(hashtags !== null){
-                hashtags.forEach(async(elem) => {
-                    console.log(`Adding ${elem} To DB`)
-                    if(elem !== socket.id){
-                        console.log(`Target: ` + elem);
-                        socket.to(elem).emit('newPost', {'post_body': arg});
-                    }
-                    const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 
-                    if(!hashtagArray.includes(elem)){
-                        hashtagArray.push(elem);
-                    }
-                })
-            }
+            // if(hashtags !== null){
+            //     hashtags.forEach(async(elem) => {
+            //         console.log(`Adding ${elem} To DB`)
+            //         if(elem !== socket.id){
+            //             console.log(`Target: ` + elem);
+            //             socket.to(elem).emit('newPost', {'post_body': arg});
+            //         }
+            //         const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 
+            //         if(!hashtagArray.includes(elem)){
+            //             hashtagArray.push(elem);
+            //         }
+            //     })
+            // }
             client.release();
         }catch(err){
             console.error(err);

@@ -52,6 +52,7 @@ io.on('connection', async(socket) => {
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
             console.log('Got past this. 2')
+            socket.to('#test').emit('newPost', {'post_body': arg});
             // if(hashtags !== null){
             //     hashtags.forEach(async(elem) => {
             //         console.log(`Adding ${elem} To DB`)

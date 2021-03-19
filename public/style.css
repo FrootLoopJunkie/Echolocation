@@ -89,7 +89,7 @@ h1:hover{
   }
 
 @keyframes redFlash{
-    from {color: #f8f8ff;}
-  to {color: red;}
-  to {color: #f8f8ff;}
+    0% {color: #f8f8ff;}
+    49% {color: red;}
+    50% {color: #f8f8ff;}
 }

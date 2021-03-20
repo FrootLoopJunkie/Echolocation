@@ -39,6 +39,11 @@ input{
     color: black;
 }
 
+button{
+    color: black;
+    border-radius: 10px;
+}
+
 #inputField{
     text-align:start;
     position: relative;

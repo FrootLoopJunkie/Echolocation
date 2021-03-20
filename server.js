@@ -49,7 +49,7 @@ io.on('connection', async(socket) => {
             if(hashtags !== null){
                 hashtags.forEach(async(elem) => {
                     console.log(`Adding ${elem} To DB`)
-                    if(elem !== socket.id && elem !== arg2){
+                    if(elem !== socket.id){
                         socket.to(elem).emit('newPost', {'post_body': arg}, socket.id);
                     }
                     const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 

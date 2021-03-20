@@ -10,7 +10,14 @@
 <body>
     <div id='container'>
         <div id='headerContainer'>
-            <div id='loginContainer'>LOGIN BAR</div>
+            <div id='loginContainer'>
+                <label for="fname">Username:</label>
+                <input type="text" name="username" id="username">
+                <label for="fname">Password:</label>
+                <input type="text" name="password" id="password">
+                <button type="submit">Login</button>
+                <button type="submit">Create Account</button>
+            </div>
             <span id='userCount' class='stats'>-- Total Connected Clients: N/A --</span>
             <span id='roomCount' class='stats'>-- Chat Rooms Open: N/A --</span>
             <h1 id='appName'>Invisify</h1>

@@ -50,7 +50,10 @@ socket.on('initialPosts', (arg) =>{
     })  
 })
 
-socket.on('newPost', (arg) => {
+socket.on('newPost', (arg, socketid) => {
+    if(socketid === socket.id){
+        return;
+    }
     newPost(arg.post_body);
     $('.hashtag').click((e) =>{
         let target = e.target.textContent;

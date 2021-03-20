@@ -34,7 +34,8 @@ io.on('connection', async(socket) => {
         try{
             socketsInRoom();
             io.emit('statCount', userCount, roomCount);
-            socket.to('#ace').emit('newPost', {'post_body': arg});
+            socket.to('#home').emit('newPost', {'post_body': arg});
+            socket.to('#ace').emit('newPost', {'post_body': arg}, socket.id);
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;

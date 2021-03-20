@@ -70,6 +70,7 @@ socket.on('newPost', (arg, socketid) => {
 socket.on('joinedRoom', (arg1, arg2) => {
     if(arg1 === '#home'){
         location.reload();
+        return;
     }
     currentRoom.innerHTML = `Current Room: ${arg1}`
     currentRoomName = arg1;

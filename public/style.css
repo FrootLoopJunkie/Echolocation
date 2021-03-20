@@ -38,13 +38,13 @@ h1:hover{
 input{
     color: black;
     border-radius: 3px;
-    padding: 0.5%;
+    padding: 0.25%;
 }
 
 button{
     color: black;
     border-radius: 3px;
-    padding: 2%;
+    padding: 0.25%;
 }
 
 #inputField{

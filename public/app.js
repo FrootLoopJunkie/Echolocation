@@ -72,6 +72,9 @@ socket.on('joinedRoom', (arg1, arg2) => {
     currentRoomName = arg1;
     inputField.value = arg1;
     $("#feedContainer").empty();
+    if(arg1 === '#home'){
+        location.reload();
+    }
     if(arg2 !== null){
         const posts = arg2.rows; 
         posts.forEach((elem) => {

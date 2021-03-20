@@ -42,7 +42,7 @@ io.on('connection', async(socket) => {
             const regx = /#(\w+)\b/ig;
             const hashtags = arg.match(regx);
             console.log('Hashtags: ' + hashtags);
-            if(hashtags === null && arg2 !== '#home'){
+            if(hashtags === null && arg2 !== '#home' || !hashtags.includes(arg2)){
                 socket.to(arg2).emit('newPost', {'post_body': arg}, socket.id);
                 const hashtagInsertNotHome = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${arg2}', '${postID}')`); 
             }

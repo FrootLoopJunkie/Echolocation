@@ -34,7 +34,7 @@ io.on('connection', async(socket) => {
         try{
             socketsInRoom();
             io.emit('statCount', userCount, roomCount);
-            socket.to('#home').emit('newPost', {'post_body': arg});
+            socket.to('#home').to('#target').emit('newPost', {'post_body': arg});
             const client = await pool.connect();
             const privatePost = await pool.query(`INSERT INTO posts_private (post_contents, date_created, user_id) VALUES ('${arg}', null, '1'); SELECT currval(pg_get_serial_sequence('posts_private', 'post_id'))`); 
             const postID = privatePost[1].rows[0].currval;
@@ -47,7 +47,7 @@ io.on('connection', async(socket) => {
                     console.log(`Adding ${elem} To DB`)
                     if(elem !== socket.id){
                         console.log(`Target: ` + elem);
-                        socket.to(elem).emit('newPost', {'post_body': arg});
+                        //socket.to(elem).emit('newPost', {'post_body': arg});
                     }
                     const hashtagInsert = await pool.query(`INSERT INTO post_hashtags (hashtag, post_id) VALUES ('${elem}', '${postID}')`); 
                     if(!hashtagArray.includes(elem)){

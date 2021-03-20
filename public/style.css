@@ -35,6 +35,10 @@ h1:hover{
     flex-direction: column;
 }
 
+#loginContainer{
+    color: black;
+}
+
 #inputField{
     text-align:start;
     position: relative;

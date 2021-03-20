@@ -37,11 +37,14 @@ h1:hover{
 
 input{
     color: black;
+    border-radius: 3px;
+    padding: 2%;
 }
 
 button{
     color: black;
-    border-radius: 10px;
+    border-radius: 3px;
+    padding: 2%;
 }
 
 #inputField{

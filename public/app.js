@@ -26,9 +26,10 @@ inputField.addEventListener('keypress', (e) => {
         inputField.value = "";
     }
     $('.hashtag').click((e) =>{
-        console.log(e.target.textContent)
-        let target = e.target.textContent;
-        socket.emit('roomRequest', target);
+        if(e.target.textContent !== currentRoomName){
+            let target = e.target.textContent;
+            socket.emit('roomRequest', target);
+        }
     })  
 })
 
@@ -46,8 +47,10 @@ socket.on('initialPosts', (arg) =>{
         })
     }
     $('.hashtag').click((e) =>{
-        let target = e.target.textContent;
-        socket.emit('roomRequest', target);
+        if(e.target.textContent !== currentRoomName){
+            let target = e.target.textContent;
+            socket.emit('roomRequest', target);
+        }
     })  
 })
 
@@ -57,8 +60,10 @@ socket.on('newPost', (arg, socketid) => {
     }
     newPost(arg.post_body);
     $('.hashtag').click((e) =>{
-        let target = e.target.textContent;
-        socket.emit('roomRequest', target);
+        if(e.target.textContent !== currentRoomName){
+            let target = e.target.textContent;
+            socket.emit('roomRequest', target);
+        }
     })  
 })
 

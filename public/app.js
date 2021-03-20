@@ -78,6 +78,12 @@ socket.on('joinedRoom', (arg1, arg2) => {
             newPost(elem.post_contents);
         })
     }
+    $('.hashtag').click((e) =>{
+        if(e.target.textContent !== currentRoomName){
+            let target = e.target.textContent;
+            socket.emit('roomRequest', target);
+        }
+    })  
 })
 
 function newPost(arg){

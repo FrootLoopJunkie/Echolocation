@@ -26,6 +26,7 @@ inputField.addEventListener('keypress', (e) => {
         inputField.value = "";
     }
     $('.hashtag').click((e) =>{
+        console.log(this.textContent)
         let target = e.target.textContent;
         socket.emit('roomRequest', target);
     })  

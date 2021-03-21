@@ -127,7 +127,8 @@ async function login(){
         },
         body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
     })
-    console.log(response);
+    const text = await response.json();
+    console.log(text);
 }
 
 async function createAccount(){

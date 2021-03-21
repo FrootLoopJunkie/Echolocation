@@ -122,7 +122,7 @@ function login(){
 }
 
 async function createAccount(){
-    const response = await fetch('https://invisify.herokuapp.com/api/createaccount' {
+    const response = await fetch('https://invisify.herokuapp.com/api/createaccount', {
         method: 'POST',
         mode: 'cors',
         headers: {

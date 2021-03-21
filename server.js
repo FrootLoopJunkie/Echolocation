@@ -40,7 +40,7 @@ app.post('/api/createaccount', async(req, res) => {
 app.post('/api/login', async(req, res) => {
     try {
         const body = req.body;
-        if(!body.username || !body.password){
+        if(!body.username || !body.password){ 
             res.status(406).end(`Please Input A Username And Password`)
             return;
         }
@@ -49,7 +49,7 @@ app.post('/api/login', async(req, res) => {
         const user = checkUsers.rows[0];
         if(checkUsers.rowCount !== 0){
             if(user.user_password === body.password){
-                res.status(200).json({'userID': user.user_id})
+                res.status(200).json({userID : user.user_id})
             }else{
                 res.status(403).end(`The Information You Entered Is Incorrect`)
             }

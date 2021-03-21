@@ -17,9 +17,18 @@ app.use(express.json())
 app.post('/api/createaccount', async(req, res) => {
     const body = req.body;
     if(!body.username || !body.password){
-        res.status(406).end()
+        res.status(406).end(`Please Input A Username And Password`)
+        return;
     }
     const checkUsers = await pool.query('SELECT user_name FROM users');
+    checkUsers.rows.forEach((elem) => {
+        if(elem.user_name === body.username){
+            res.status(406).end('Account Already Exists With This Username');
+            return;
+        }else{
+            res.status(201).end('Creating Account');
+        }
+    })
     console.log(checkUsers.rows);
 
 })

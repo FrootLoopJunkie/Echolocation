@@ -44,7 +44,7 @@ app.post('/api/login', async(req, res) => {
             res.status(406).end(`Please Input A Username And Password`)
             return;
         }
-        const checkUsers = await pool.query(`SELECT * FROM users WHERE username = ${body.username}`);
+        const checkUsers = await pool.query(`SELECT * FROM users WHERE user_name = ${body.username}`);
         const user = checkUsers.rows[0];
         if(user.length !== 0){
             if(user.password === body.password){

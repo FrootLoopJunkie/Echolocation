@@ -121,8 +121,15 @@ function login(){
     console.log('LOGIN')
 }
 
-function createAccount(){
-    console.log('CREATE ACCOUNT')
+async function createAccount(){
+    const response = await fetch('https://invisify.herokuapp.com/api/createaccount' {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username : usernameInput.value, password: passwordInput.value})
+    })
 }
 
 function genUsername(){

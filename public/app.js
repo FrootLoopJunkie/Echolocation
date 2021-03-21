@@ -137,7 +137,7 @@ async function createAccount(){
             $('#loginContainer').hide();
             break;
         case 406:
-            $('#loginContainer').prepend('<span>Username Taken</span>');
+            $('#loginContainer').prepend('<span class=redText>Username Taken</span><br>');
             break;
         default: 
             console.log('default');

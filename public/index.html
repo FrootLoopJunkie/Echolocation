@@ -14,8 +14,8 @@
             <div id='loginContainer'>
                 <input type="text" name="username" id="username" placeholder="Enter Username...">
                 <input type="text" name="password" id="password" placeholder="Enter Password...">
-                <button type="submit">Login</button>
-                <button type="submit">Create Account</button>
+                <button id="loginButton"type="submit" onclick="login()">Login</button>
+                <button id="createAccountButton"type="submit" onclick="createAccount()">Create Account</button>
             </div>
             <span id='userCount' class='stats'>-- Total Connected Clients: N/A --</span>
             <span id='roomCount' class='stats'>-- Chat Rooms Open: N/A --</span>

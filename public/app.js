@@ -5,6 +5,8 @@ const userCount = document.querySelector('#userCount');
 const roomCount = document.querySelector('#roomCount');
 const currentRoom = document.querySelector('#currentRoom');
 const appName = document.querySelector('#appName');
+const usernameInput = document.querySelector('#username');
+const passwordInput = document.querySelector('#password');
 
 let currentRoomName = '#home';
 
@@ -113,6 +115,14 @@ function newPost(arg){
     postContainer.append(postBody);
     postContainer.setAttribute('class', 'post');
     feedContainer.prepend(postContainer);
+}
+
+function login(){
+    console.log('LOGIN')
+}
+
+function createAccount(){
+    console.log('CREATE ACCOUNT')
 }
 
 function genUsername(){

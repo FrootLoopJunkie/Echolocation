@@ -12,6 +12,7 @@ let roomArray = [];
 let hashtagArray = [];
 
 app.use(express.static('public'));
+app.use(express.json())
 
 app.post('/api/createaccount', async(req, res) => {
     console.log(req.body);

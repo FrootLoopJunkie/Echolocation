@@ -7,6 +7,7 @@ const currentRoom = document.querySelector('#currentRoom');
 const appName = document.querySelector('#appName');
 const usernameInput = document.querySelector('#username');
 const passwordInput = document.querySelector('#password');
+const loginContainer = document.querySelector('#loginContainer');
 
 let currentRoomName = '#home';
 
@@ -131,6 +132,9 @@ async function createAccount(){
         body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
     })
     console.log(response)
+    if(response.status === 201){
+        $('#loginContainer').hide();
+    }
 }
 
 function genUsername(){

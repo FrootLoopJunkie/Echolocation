@@ -132,8 +132,16 @@ async function createAccount(){
         body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
     })
     console.log(response)
-    if(response.status === 201){
-        $('#loginContainer').hide();
+    switch(response.status){
+        case 201: 
+            $('#loginContainer').hide();
+            break;
+        case 406:
+            $('#loginContainer').prepend('<span>Username Taken</span>');
+            break;
+        default: 
+            console.log('default');
+
     }
 }
 

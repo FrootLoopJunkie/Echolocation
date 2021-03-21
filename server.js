@@ -48,7 +48,7 @@ app.post('/api/login', async(req, res) => {
         const checkUsers = await pool.query(`SELECT * FROM users WHERE user_name = '${body.username.toLowerCase()}'`);
         const user = checkUsers.rows[0];
         if(checkUsers.rowCount !== 0){
-            if(user.password === body.password){
+            if(user.user_password === body.password){
                 res.status(200).json({'userID': user.user_id})
             }else{
                 res.status(403).end(`The Information You Entered Is Incorrect`)

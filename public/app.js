@@ -134,7 +134,11 @@ async function createAccount(){
     console.log(response)
     switch(response.status){
         case 201: 
-            $('#loginContainer').hide();
+            $('#loginContainer').empty();
+            $('#loginContainer').prepend('<span class=greenText>Account Created</span><br>');
+            setTimeout(() => {
+                $('#loginContainer').hide();
+            }, 5000)
             break;
         case 406:
             $('#loginContainer').prepend('<span class=redText>Username Taken</span><br>');

@@ -45,7 +45,7 @@ app.post('/api/login', async(req, res) => {
             return;
         }
         console.log(body.username + " Typeof:" + typeof body.username);
-        const checkUsers = await pool.query(`SELECT * FROM users WHERE user_name = '${body.username}'`);
+        const checkUsers = await pool.query(`SELECT * FROM users WHERE user_name = '${body.username.toLowerCase()}'`);
         const user = checkUsers.rows[0];
         if(checkUsers.rowCount !== 0){
             if(user.password === body.password){

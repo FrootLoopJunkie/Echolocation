@@ -130,6 +130,7 @@ async function createAccount(){
         },
         body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
     })
+    console.log(response)
 }
 
 function genUsername(){

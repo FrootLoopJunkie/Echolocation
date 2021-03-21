@@ -22,7 +22,7 @@ app.post('/api/createaccount', async(req, res) => {
     }
     const checkUsers = await pool.query('SELECT user_name FROM users');
     checkUsers.rows.forEach((elem) => {
-        if(elem.user_name === body.username){
+        if(elem.user_name.toLowerCase() === body.username.toLowerCase()){
             res.status(406).end('Account Already Exists With This Username');
             return;
         }else{

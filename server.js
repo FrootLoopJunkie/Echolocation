@@ -6,14 +6,35 @@ const morgan = require('morgan');
 const { readdirSync } = require('fs');
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer);
+const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 //
 let userCount = 0;
 let roomCount = 0;
 let roomArray = [];
 let hashtagArray = [];
 
+let activeUsers = [];
+
 app.use(express.static('public'));
 app.use(express.json())
+
+passport.use(new LocalStrategy{
+    function (username, password, done){
+        User.findOne({username: username}, function (err, user){
+            if(err) { return done(err);}
+
+            if(!user){
+                return done(null, false, {message: 'Incorrect username.'});
+            }
+
+            if(!user.validPassword(password)){
+                return done(null, false, {message: 'Incorrect password.'});
+            }
+
+            return done(null, user);
+        });
+    }
+});
 
 app.post('/api/createaccount', async(req, res) => {
     try {
@@ -37,25 +58,10 @@ app.post('/api/createaccount', async(req, res) => {
     }
 });
 
-app.post('/api/login', async(req, res) => {
+app.post('/api/login', passport.authenticate('local'), async(req, res) => {
     try {
         const body = req.body;
-        if(!body.username || !body.password){ 
-            res.status(406).end(`Please Input A Username And Password`)
-            return;
-        }
-        console.log(body.username + " Typeof:" + typeof body.username);
-        const checkUsers = await pool.query(`SELECT * FROM users WHERE user_name = '${body.username.toLowerCase()}'`);
-        const user = checkUsers.rows[0];
-        if(checkUsers.rowCount !== 0){
-            if(user.user_password === body.password){
-                res.status(200).json({userID : user.user_id})
-            }else{
-                res.status(403).end(`The Information You Entered Is Incorrect`)
-            }
-        }else{
-            res.status(404).end('No Account With That Username')
-        }
+        
     } catch (err) {
         console.error(err)
         res.status(500).end(err);

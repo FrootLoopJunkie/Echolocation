@@ -128,7 +128,7 @@ async function createAccount(){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username : usernameInput.value, password: passwordInput.value})
+        body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
     })
 }
 

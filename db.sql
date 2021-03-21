@@ -3,6 +3,7 @@ CREATE TABLE users(
     user_name TEXT,
     user_password TEXT,
     date_created DATE,
+    shadowban BOOL,
     PRIMARY KEY (user_id)
 );
 

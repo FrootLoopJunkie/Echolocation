@@ -119,7 +119,15 @@ function newPost(arg){
 }
 
 function login(){
-    console.log('LOGIN')
+    const response = await fetch('https://invisify.herokuapp.com/api/login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'username' : usernameInput.value, 'password': passwordInput.value})
+    })
+    console.log(response);
 }
 
 async function createAccount(){

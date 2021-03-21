@@ -3,6 +3,7 @@ const pool = require('./pg');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const { readdirSync } = require('fs');
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer);
 //
@@ -15,23 +16,49 @@ app.use(express.static('public'));
 app.use(express.json())
 
 app.post('/api/createaccount', async(req, res) => {
-    const body = req.body;
-    if(!body.username || !body.password){
-        res.status(406).end(`Please Input A Username And Password`)
-        return;
-    }
-    const checkUsers = await pool.query('SELECT user_name FROM users');
-    checkUsers.rows.forEach((elem) => {
-        if(elem.user_name.toLowerCase() === body.username.toLowerCase()){
-            res.status(406).end('Account Already Exists With This Username');
+    try {
+        const body = req.body;
+        if(!body.username || !body.password){
+            res.status(406).end(`Please Input A Username And Password`)
             return;
-        }else{
-            res.status(201).end('Creating Account');
         }
-    })
-    console.log(checkUsers.rows);
+        const checkUsers = await pool.query('SELECT user_name FROM users');
+        checkUsers.rows.forEach((elem) => {
+            if(elem.user_name.toLowerCase() === body.username.toLowerCase()){
+                res.status(406).end('Account Already Exists With This Username');
+                return;
+            }else{
+                res.status(201).end('Creating Account');
+            }
+        })
+        console.log(checkUsers.rows);
+    } catch (err) {
+        res.status(500).end(err);
+    }
+});
 
-})
+app.post('/api/login', async(req, res) => {
+    try {
+        const body = req.body;
+        if(!body.username || !body.password){
+            res.status(406).end(`Please Input A Username And Password`)
+            return;
+        }
+        const checkUsers = await pool.query(`SELECT * FROM users WHERE username = ${body.username}`);
+        const user = checkUsers.rows[0];
+        if(user.length !== 0){
+            if(user.password === body.password){
+                res.status(200).json({'userID': user.user_id})
+            }else{
+                res.status(403).end(`The Information You Entered Is Incorrect`)
+            }
+        }else{
+            res.status(404).end('No Account With That Username')
+        }
+    } catch (err) {
+        res.status(500).end(err);
+    }
+});
 
 io.on('connection', async(socket) => {
     socket.join('#home');

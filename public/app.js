@@ -124,7 +124,6 @@ function login(){
 async function createAccount(){
     const response = await fetch('https://invisify.herokuapp.com/api/createaccount', {
         method: 'POST',
-        mode: 'cors',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

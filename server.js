@@ -15,7 +15,13 @@ app.use(express.static('public'));
 app.use(express.json())
 
 app.post('/api/createaccount', async(req, res) => {
-    console.log(req.body);
+    const body = req.body;
+    if(!body.username || !body.password){
+        res.status(406).end()
+    }
+    const checkUsers = await pool.query('SELECT user_name FROM users');
+    console.log(checkUsers.rows);
+
 })
 
 io.on('connection', async(socket) => {

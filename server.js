@@ -13,7 +13,7 @@ let hashtagArray = [];
 
 app.use(express.static('public'));
 
-app.post('api/createaccount', async(req, res) => {
+app.post('/api/createaccount', async(req, res) => {
     console.log(req);
 })
 

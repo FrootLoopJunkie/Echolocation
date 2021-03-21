@@ -118,7 +118,7 @@ function newPost(arg){
     feedContainer.prepend(postContainer);
 }
 
-function login(){
+async function login(){
     const response = await fetch('https://invisify.herokuapp.com/api/login', {
         method: 'POST',
         headers: {

@@ -22,7 +22,8 @@ app.post('/api/createaccount', async(req, res) => {
             res.status(406).end(`Please Input A Username And Password`)
             return;
         }
-        const checkUsers = await pool.query('SELECT user_name FROM users');
+        try {
+            const checkUsers = await pool.query('SELECT user_name FROM users');
         checkUsers.rows.forEach((elem) => {
             if(elem.user_name.toLowerCase() === body.username.toLowerCase()){
                 res.status(406).end('Account Already Exists With This Username');
@@ -32,6 +33,9 @@ app.post('/api/createaccount', async(req, res) => {
             }
         })
         console.log(checkUsers.rows);
+        } catch (err) {
+            res.status(500).end(err);
+        }
     } catch (err) {
         res.status(500).end(err);
     }

@@ -57,6 +57,7 @@ app.post('/api/login', async(req, res) => {
             res.status(404).end('No Account With That Username')
         }
     } catch (err) {
+        console.error(err);
         res.status(500).end(err);
     }
 });

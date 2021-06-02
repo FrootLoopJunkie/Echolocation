@@ -7,6 +7,7 @@ const { readdirSync } = require('fs');
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer);
 const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+const PORT = process.env.PORT || 8000;
 //
 let userCount = 0;
 let roomCount = 0;
@@ -149,8 +150,8 @@ io.on('connection', async(socket) => {
     })
 })
 
-httpServer.listen(process.env.PORT, () => {
-    console.log(`Now Listening On Port: ${process.env.PORT}`);
+httpServer.listen(PORT, () => {
+    console.log(`Now Listening On Port: ${PORT}`);
 })
 
 function socketsInRoom(){
